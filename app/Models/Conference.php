@@ -9,4 +9,12 @@ class Conference extends Model
 {
     /** @use HasFactory<\Database\Factories\ConferenceFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'start_dateTime',
+        'end_dateTime',
+        'content',
+        'maxParticipantCount',
+    ];
 }
