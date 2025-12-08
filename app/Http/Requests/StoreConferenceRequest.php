@@ -11,7 +11,7 @@ class StoreConferenceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;//restore to false later
+        return false;
     }
 
     /**

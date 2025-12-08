@@ -1,6 +1,8 @@
 tinymce.init({
     selector: "#content-input",
     plugins: 'image link media',
+    toolbar: 'undo redo | cut copy paste | bold italic underline strikethrough codeformat | forecolor backcolor | indent outdent fontfamily fontsize lineheight | image link | removeformat',
+    menubar: false,
     automatic_uploads: true,
     relative_urls: false,
     license_key: "gpl",
