@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Urodoz\Truncate\TruncateService;
 
 class Conference extends Model
 {
@@ -17,4 +18,12 @@ class Conference extends Model
         'content',
         'maxParticipantCount',
     ];
+
+    /**
+     * Summary of getSnippetAttribute
+     * @return string
+     */
+    public function getSnippetAttribute(){
+        return TruncateService::create()->truncate($this->content, 500);
+    }
 }

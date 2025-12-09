@@ -18,7 +18,7 @@ class ConferenceController extends Controller
      */
     public function index()
     {
-        return view('events.index');
+        return view('events.index', ['conferences'=>Conference::all()]);
     }
 
     /**
@@ -71,19 +71,39 @@ class ConferenceController extends Controller
         return view("events.show", compact('conference'));
     }
 
-
+    /**
+     * Summary of edit
+     * @param Conference $conference
+     * @return View
+     */
     public function edit(Conference $conference)
     {
-        //
+        return view("events.edit", compact('conference'));
     }
 
+    /**
+     * Summary of update
+     * @param StoreConferenceRequest $request
+     * @param Conference $conference
+     * @return RedirectResponse
+     */
     public function update(StoreConferenceRequest $request, Conference $conference)
     {
-        //
+        $conference->update($request->validated());
+        return redirect()->route("events.show", compact('conference'));
     }
 
+    /**
+     * Summary of destroy
+     * @param Request $request
+     * @param Conference $conference
+     * @return RedirectResponse
+     */
     public function destroy(Request $request, Conference $conference)
     {
+        $conference->destroy($conference->id);
+        $request->session()->flash("status", "Conference successfully deleted.");
 
+        return redirect()->route("events.index");
     }
 }

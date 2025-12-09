@@ -1,0 +1,15 @@
+.various-content {
+    padding-top: 2%;
+    margin: auto;
+    display: flexbox;
+    width: 40%;
+    align-items: initial;
+}
+.snippet {
+    padding-bottom: 5%;
+}
+
+.event-link {
+    color: black;
+    text-decoration-line: none;
+}
