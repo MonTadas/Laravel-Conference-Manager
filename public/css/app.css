@@ -2,7 +2,7 @@
     padding-top: 2%;
     margin: auto;
     display: flexbox;
-    width: 40%;
+    width: 60%;
     align-items: initial;
 }
 .snippet {
@@ -12,11 +12,4 @@
 .event-link {
     color: black;
     text-decoration-line: none;
-}
-
-.navbar-header{
-    margin: auto;
-    display: flexbox;
-    align-items: center;
-    width: 40%;
 }
