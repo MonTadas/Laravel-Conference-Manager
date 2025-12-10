@@ -42,7 +42,7 @@ class ConferenceController extends Controller
         $conference = Conference::create($validated);
 
         $request->session()->flash("status", "Event created successfully!");
-        return redirect()->route("events.show", compact('conference'));
+        return redirect()->route("events.show", $conference);
     }
     /**
      * Summary of storeImage
@@ -96,7 +96,7 @@ class ConferenceController extends Controller
     public function update(StoreConferenceRequest $request, Conference $conference)
     {
         $conference->update($request->validated());
-        return redirect()->route("events.show", compact('conference'));
+        return redirect()->route("events.show", $conference);
     }
 
     /**

@@ -7,15 +7,18 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => true, 'login' => true, 'reset' => false, 'verify' => false]);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'can:admin'])->group(function () {
     Route::post('events/store_image', [ConferenceController::class, 'storeImage']);
     Route::resource('events', ConferenceController::class)
         ->except(['index', 'show', 'storeImage'])
         ->parameters(['events' => 'conference']);
+});
+
+Route::middleware(['auth'])->group(function () {
     Route::post('events/{conference}/participation', [ConferenceParticipantsController::class, 'store'])
         ->name('events.participation.store');
     Route::delete('events/{conference}/participation', [ConferenceParticipantsController::class, 'destroy'])
-        ->name("events.participation.destroy");
+        ->name('events.participation.destroy');
 });
 
 Route::resource('events', ConferenceController::class)
