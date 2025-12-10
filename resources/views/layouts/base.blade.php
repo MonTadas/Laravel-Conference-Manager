@@ -14,8 +14,9 @@
 </head>
 
 <body>
-    <header>
+    <header class="navbar-header">
         <div style="display: flex; gap:10px;">
+            <a href="{{ route("events.index") }}" class="btn btn-outline-primary">Home</a>
             @can('admin')
                 <a href="{{ route('events.create') }}" class="btn btn-success">Create conference</a>
             @endcan
