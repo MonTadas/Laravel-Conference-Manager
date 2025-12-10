@@ -35,25 +35,6 @@
         </div>
 
     </nav>
-    {{-- <header class="navbar-header">
-        <div style="display: flex; gap:10px;">
-            <a href="{{ route("events.index") }}" class="btn btn-outline-primary">Home</a>
-            @can('admin')
-                <a href="{{ route('events.create') }}" class="btn btn-success">Create conference</a>
-            @endcan
-            @auth
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button class="btn btn-outline-danger" type="submit">Logout</button>
-                </form>
-            @endauth
-            @guest
-                <a href="{{ route('register') }}" class="btn btn-outline-secondary" type="submit">Register</a>
-                <a href="{{ route('login') }}" class="btn btn-outline-primary" type="submit">Login</a>
-            @endguest
-        </div>
-
-    </header> --}}
     <div class="various-content">
         @yield('content')
     </div>
