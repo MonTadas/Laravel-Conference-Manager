@@ -14,7 +14,28 @@
 </head>
 
 <body>
-    <header class="navbar-header">
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <div class="navbar-nav me-auto">
+            <a href="{{ route('events.index') }}" class="navbar-brand">Conference manager</a>
+            @can('admin')
+                <a href="{{ route('events.create') }}" class="nav-link">Create conference</a>
+            @endcan
+        </div>
+        <div class="navbar-nav ms-auto">
+            @auth
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                </form>
+            @endauth
+            @guest
+                <a href="{{ route('register') }}" class="btn btn-outline-secondary" type="submit">Register</a>
+                <a href="{{ route('login') }}" class="btn btn-outline-primary" type="submit">Login</a>
+            @endguest
+        </div>
+
+    </nav>
+    {{-- <header class="navbar-header">
         <div style="display: flex; gap:10px;">
             <a href="{{ route("events.index") }}" class="btn btn-outline-primary">Home</a>
             @can('admin')
@@ -32,7 +53,7 @@
             @endguest
         </div>
 
-    </header>
+    </header> --}}
     <div class="various-content">
         @yield('content')
     </div>
