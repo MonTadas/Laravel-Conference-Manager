@@ -15,13 +15,23 @@
 
 <body>
     <header>
-        @yield('header')
         @auth
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="btn btn-outline-danger" type="submit">Logout</button>
             </form>
         @endauth
+        @guest
+            <div style="display: flex; gap:10px;">
+                <form action="{{ route('register') }}" method="GET">
+                    <button class="btn btn-outline-secondary" type="submit">Register</button>
+                </form>
+                <form action="{{ route('login') }}" method="GET">
+                    <button class="btn btn-outline-primary" type="submit">Login</button>
+                </form>
+            </div>
+
+        @endguest
     </header>
     <div class="various-content">
         @yield('content')

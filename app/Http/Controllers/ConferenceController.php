@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreConferenceRequest;
 use App\Models\Conference;
+use App\Models\ConferenceParticipants;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -68,7 +69,12 @@ class ConferenceController extends Controller
      */
     public function show(Conference $conference)
     {
-        return view("events.show", compact('conference'));
+        $isAttending = false;
+        if (ConferenceParticipants::where('conference_id', $conference->id)
+            ->where('user_id', auth()->id())->exists()) {
+            $isAttending = true;
+        }
+        return view("events.show", ['conference'=>$conference, 'isAttending'=>$isAttending]);
     }
 
     /**

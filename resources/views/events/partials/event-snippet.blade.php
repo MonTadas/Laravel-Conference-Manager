@@ -11,7 +11,10 @@
                 <p class="post-date"><i>Created at: {{ $conference->created_at->format('Y-m-d H:i:s') }}</i></p>
             @endif
         </div>
-
+        @can('admin')
+            <a class="btn btn-warning btn-sm" href="{{ route('events.edit', $conference) }}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{{ route('events.destroy', $conference) }}">Delete</a>
+        @endcan
     </header>
     {!! $conference->snippet !!}
 </div>

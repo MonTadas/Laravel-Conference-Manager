@@ -11,9 +11,17 @@
                 @if ($conference->updated_at != $conference->created_at)
                     <p class="post-date"><i>Updated at: {{ $conference->updated_at->format('Y-m-d H:i:s') }}</i></p>
                 @endif
+                <div style="display: flex; gap:10px;">
+                    @auth
+                        @include('events.partials.participation-form')
+                    @endauth
 
-                <a class="btn btn-warning" href="{{ route('events.edit', $conference) }}">Edit</a>
-                <a class="btn btn-danger" href="{{ route("events.destroy", $conference) }}">Delete</a>
+                    @can('admin')
+                        <a class="btn btn-warning btn-sm" href="{{ route('events.edit', $conference) }}">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="{{ route('events.destroy', $conference) }}">Delete</a>
+                    @endcan
+                </div>
+
             </div>
         </header>
         <h6>Maximum participant amount: {{ $conference->maxParticipantCount }}</h6>

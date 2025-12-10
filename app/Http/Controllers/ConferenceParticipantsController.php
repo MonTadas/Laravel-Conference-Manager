@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreConferenceParticipantsRequest;
 use App\Http\Requests\UpdateConferenceParticipantsRequest;
+use App\Models\Conference;
 use App\Models\ConferenceParticipants;
 
 class ConferenceParticipantsController extends Controller
@@ -11,7 +11,7 @@ class ConferenceParticipantsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Conference $conference)
     {
         //
     }
@@ -27,9 +27,14 @@ class ConferenceParticipantsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreConferenceParticipantsRequest $request)
+    public function store(Conference $conference)
     {
-        //
+        if (! ConferenceParticipants::where('conference_id', $conference->id)
+            ->where('user_id', auth()->id())->exists()) {
+            ConferenceParticipants::create(['conference_id' => $conference->id, 'user_id' => auth()->user()->id]);
+        }
+
+        return redirect()->route('events.show', $conference);
     }
 
     /**
@@ -59,8 +64,11 @@ class ConferenceParticipantsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ConferenceParticipants $conferenceParticipants)
+    public function destroy(Conference $conference)
     {
-        //
+        ConferenceParticipants::where('conference_id', $conference->id)
+            ->where('user_id', auth()->id())->delete();
+
+        return redirect()->route('events.show', $conference);
     }
 }

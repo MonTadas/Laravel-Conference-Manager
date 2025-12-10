@@ -9,4 +9,8 @@ class ConferenceParticipants extends Model
 {
     /** @use HasFactory<\Database\Factories\ConferenceParticipantsFactory> */
     use HasFactory;
+
+    protected $fillable=[
+        'conference_id', 'user_id'
+    ];
 }
