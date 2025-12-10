@@ -11,7 +11,7 @@ class StoreConferenceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()->can('admin');
     }
 
     /**
@@ -22,11 +22,11 @@ class StoreConferenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required | min:5 | max:100',
-            'content' => 'required | min:5 | max:1500',
-            'start_dateTime' => 'required | date',
-            'end_dateTime' => 'required | after:start_dateTime | date',
-            'maxParticipantCount'=>'required | min:1'
+            'title' => 'required|min:5|max:100',
+            'content' => 'required|min:5|max:15000',
+            'start_dateTime' => 'required|date',
+            'end_dateTime' => 'required|after:start_dateTime|date',
+            'maxParticipantCount' => 'required|min:1',
         ];
     }
 }
