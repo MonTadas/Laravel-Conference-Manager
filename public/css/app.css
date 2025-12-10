@@ -13,3 +13,10 @@
     color: black;
     text-decoration-line: none;
 }
+
+.navbar-header{
+    margin: auto;
+    display: flexbox;
+    align-items: center;
+    width: 40%;
+}

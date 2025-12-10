@@ -21,9 +21,20 @@ class Conference extends Model
 
     /**
      * Summary of getSnippetAttribute
+     *
      * @return string
      */
-    public function getSnippetAttribute(){
+    public function getSnippetAttribute()
+    {
         return TruncateService::create()->truncate($this->content, 500);
+    }
+
+    public function isFull(): bool
+    {
+        return $this->getAttendanceEntries()->count() < $this->maxParticipationAmount;
+    }
+
+    public function getAttendanceEntries(){
+        return ConferenceParticipants::where('conference_id', $this->id);
     }
 }

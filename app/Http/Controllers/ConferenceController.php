@@ -10,6 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 class ConferenceController extends Controller
 {
     /**
@@ -19,7 +20,7 @@ class ConferenceController extends Controller
      */
     public function index()
     {
-        return view('events.index', ['conferences'=>Conference::all()]);
+        return view('events.index', ['conferences' => Conference::all()->sortByDesc('start_dateTime')]);
     }
 
     /**
@@ -34,19 +35,22 @@ class ConferenceController extends Controller
 
     /**
      * Summary of store
-     * @param StoreConferenceRequest $request
+     *
      * @return RedirectResponse
      */
-    public function store(StoreConferenceRequest $request) {
+    public function store(StoreConferenceRequest $request)
+    {
         $validated = $request->validated();
         $conference = Conference::create($validated);
 
-        $request->session()->flash("status", "Event created successfully!");
-        return redirect()->route("events.show", $conference);
+        $request->session()->flash('status', 'Event created successfully!');
+
+        return redirect()->route('events.show', $conference);
     }
+
     /**
      * Summary of storeImage
-     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function storeImage(Request $request)
@@ -64,52 +68,51 @@ class ConferenceController extends Controller
 
     /**
      * Summary of show
-     * @param Conference $conference
+     *
      * @return View
      */
     public function show(Conference $conference)
     {
         $isAttending = false;
-        if (ConferenceParticipants::where('conference_id', $conference->id)
-            ->where('user_id', auth()->id())->exists()) {
+        if ($conference->getAttendanceEntries()->where('user_id', auth()->id())->exists()) {
             $isAttending = true;
         }
-        return view("events.show", ['conference'=>$conference, 'isAttending'=>$isAttending]);
+
+        return view('events.show', ['conference' => $conference, 'isAttending' => $isAttending]);
     }
 
     /**
      * Summary of edit
-     * @param Conference $conference
+     *
      * @return View
      */
     public function edit(Conference $conference)
     {
-        return view("events.edit", compact('conference'));
+        return view('events.edit', compact('conference'));
     }
 
     /**
      * Summary of update
-     * @param StoreConferenceRequest $request
-     * @param Conference $conference
+     *
      * @return RedirectResponse
      */
     public function update(StoreConferenceRequest $request, Conference $conference)
     {
         $conference->update($request->validated());
-        return redirect()->route("events.show", $conference);
+
+        return redirect()->route('events.show', $conference);
     }
 
     /**
      * Summary of destroy
-     * @param Request $request
-     * @param Conference $conference
+     *
      * @return RedirectResponse
      */
     public function destroy(Request $request, Conference $conference)
     {
         $conference->destroy($conference->id);
-        $request->session()->flash("status", "Conference successfully deleted.");
+        $request->session()->flash('status', 'Conference successfully deleted.');
 
-        return redirect()->route("events.index");
+        return redirect()->route('events.index');
     }
 }

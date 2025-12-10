@@ -11,7 +11,7 @@
 <div class="mb-3">
     <label for="participant-max-input" class="form-label">Max amount of participants</label>
     <input type="number" name="maxParticipantCount" id="participant-max-input"
-        class="form-control"value="{{ old('maxParticipantCount', optional($conference ?? null)->maxParticipantCount) }}">
+        class="form-control" value="{{ old('maxParticipantCount', optional($conference ?? null)->maxParticipantCount) }}">
 
     @error('title')
         <p>{{ $message }}</p>
@@ -19,8 +19,8 @@
 </div>
 <div class="mb-3">
     <label for="start-date-input">Start date time</label>
-    <input type="datetime-local" name="start_dateTime"
-        id="start-date-input"value="{{ old('start_dateTime', optional($conference ?? null)->start_dateTime) }}">
+    <input type="datetime-local" name="start_dateTime" class="form-control"
+        id="start-date-input" value="{{ old('start_dateTime', optional($conference ?? null)->start_dateTime) }}">
 
     @error('start_dateTime')
         <p>{{ $message }}</p>
@@ -28,8 +28,8 @@
 </div>
 <div class="mb-3">
     <label for="end-date-input">End date time</label>
-    <input type="datetime-local" name="end_dateTime"
-        id="end-date-input"value="{{ old('end_dateTime', optional($conference ?? null)->end_dateTime) }}">
+    <input type="datetime-local" name="end_dateTime" class="form-control"
+        id="end-date-input" value="{{ old('end_dateTime', optional($conference ?? null)->end_dateTime) }}">
 
     @error('end_dateTime')
         <p>{{ $message }}</p>

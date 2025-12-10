@@ -4,7 +4,7 @@
         @method('DELETE')
         <input type="submit" class="btn btn-outline-danger btn-sm" value="Cancel attendance">
     </form>
-@else
+@elseif(!$conference->isFull())
     <form action="{{ route('events.participation.store', ['conference' => $conference]) }}" method="POST">
         @csrf
         <input type="submit" class="btn btn-outline-primary btn-sm" value="Mark attendance">

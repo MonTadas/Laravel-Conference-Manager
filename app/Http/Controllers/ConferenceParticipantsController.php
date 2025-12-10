@@ -29,8 +29,8 @@ class ConferenceParticipantsController extends Controller
      */
     public function store(Conference $conference)
     {
-        if (! ConferenceParticipants::where('conference_id', $conference->id)
-            ->where('user_id', auth()->id())->exists()) {
+        if (! $conference->getAttendanceEntries()->where('user_id', auth()->id())->exists() ||
+        ! $conference->isFull()) {
             ConferenceParticipants::create(['conference_id' => $conference->id, 'user_id' => auth()->user()->id]);
         }
 
